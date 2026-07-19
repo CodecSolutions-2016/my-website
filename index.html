@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[Your Name] — Senior .NET Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:      #FAFAF7;
+    --paper-dim:  #F1F0EA;
+    --ink:        #1A2238;
+    --ink-soft:   #4A5270;
+    --steel:      #3D5A80;
+    --signal:     #B5892B;
+    --line:       #DAD7CD;
+
+    --display: 'Source Serif 4', serif;
+    --mono:    'IBM Plex Mono', monospace;
+    --body:    'Inter', sans-serif;
+  }
+
+  *{ box-sizing: border-box; margin:0; padding:0; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a{ color: inherit; text-decoration: none; }
+
+  .wrap{
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ---------- Focus ---------- */
+  a:focus-visible, button:focus-visible{
+    outline: 2px solid var(--steel);
+    outline-offset: 3px;
+  }
+
+  /* ---------- Nav ---------- */
+  header.site{
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: rgba(250,250,247,0.92);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav{
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    padding: 18px 0;
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.02em;
+  }
+  .nav .logo{
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 1.05rem;
+    letter-spacing: 0;
+  }
+  .nav ul{
+    list-style:none;
+    display:flex;
+    gap: 28px;
+  }
+  .nav ul a{
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    transition: color 0.15s ease;
+  }
+  .nav ul a:hover{ color: var(--steel); }
+
+  .nav-toggle{ display:none; }
+
+  /* ---------- Hero / Manifest block ---------- */
+  .hero{
+    padding: 72px 0 56px;
+    border-bottom: 1px solid var(--line);
+  }
+  .eyebrow{
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--signal);
+    margin-bottom: 18px;
+  }
+  .hero h1{
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(2.4rem, 5vw, 3.6rem);
+    line-height: 1.08;
+    max-width: 14ch;
+  }
+  .hero p.lede{
+    margin-top: 22px;
+    max-width: 56ch;
+    font-size: 1.08rem;
+    color: var(--ink-soft);
+  }
+
+  .manifest{
+    margin-top: 40px;
+    border: 1px solid var(--line);
+    background: var(--paper-dim);
+  }
+  .manifest-row{
+    display:grid;
+    grid-template-columns: 160px 1fr;
+    border-bottom: 1px solid var(--line);
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    opacity: 0;
+    transform: translateY(6px);
+    animation: rise 0.5s ease forwards;
+  }
+  .manifest-row:last-child{ border-bottom: none; }
+  .manifest-row:nth-child(1){ animation-delay: 0.05s; }
+  .manifest-row:nth-child(2){ animation-delay: 0.12s; }
+  .manifest-row:nth-child(3){ animation-delay: 0.19s; }
+  .manifest-row:nth-child(4){ animation-delay: 0.26s; }
+
+  @keyframes rise{
+    to{ opacity: 1; transform: translateY(0); }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .manifest-row{ animation: none; opacity: 1; transform: none; }
+  }
+
+  .manifest-row .key{
+    padding: 12px 16px;
+    color: var(--ink-soft);
+    border-right: 1px solid var(--line);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .manifest-row .val{
+    padding: 12px 16px;
+    color: var(--ink);
+  }
+  .status-dot{
+    display:inline-block;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: #4C7A4C;
+    margin-right: 8px;
+    position: relative; top: -1px;
+  }
+
+  .hero-cta{
+    margin-top: 32px;
+    display:flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .btn{
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 13px 22px;
+    border: 1px solid var(--ink);
+    display:inline-block;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .btn.primary{ background: var(--ink); color: var(--paper); }
+  .btn.primary:hover{ background: var(--steel); border-color: var(--steel); }
+  .btn.ghost:hover{ background: var(--ink); color: var(--paper); }
+
+  /* ---------- Section shell ---------- */
+  section{
+    padding: 64px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .section-head{
+    display:flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 36px;
+  }
+  .section-head h2{
+    font-family: var(--display);
+    font-size: 1.7rem;
+    font-weight: 600;
+  }
+  .section-head .tag{
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.05em;
+  }
+
+  /* ---------- About ---------- */
+  .about-grid{
+    display:grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 48px;
+  }
+  .about-grid p{ color: var(--ink-soft); margin-bottom: 14px; max-width: 60ch; }
+  .about-grid p:last-child{ margin-bottom: 0; }
+
+  .fact-list{
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    border-left: 2px solid var(--signal);
+    padding-left: 18px;
+  }
+  .fact-list div{ margin-bottom: 14px; }
+  .fact-list div:last-child{ margin-bottom: 0; }
+  .fact-list .num{
+    font-family: var(--display);
+    font-size: 1.6rem;
+    font-weight: 600;
+    display:block;
+    color: var(--ink);
+  }
+  .fact-list .label{ color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.04em; font-size: 0.72rem; }
+
+  /* ---------- Skills ---------- */
+  .skill-groups{
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .skill-group{
+    background: var(--paper);
+    padding: 24px 26px;
+  }
+  .skill-group h3{
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--signal);
+    margin-bottom: 14px;
+  }
+  .skill-group ul{ list-style:none; }
+  .skill-group li{
+    padding: 7px 0;
+    border-top: 1px dashed var(--line);
+    font-size: 0.94rem;
+  }
+  .skill-group li:first-child{ border-top: none; }
+
+  /* ---------- Experience timeline ---------- */
+  .timeline{
+    border-left: 1px solid var(--line);
+    padding-left: 32px;
+  }
+  .role{
+    position: relative;
+    padding-bottom: 40px;
+  }
+  .role:last-child{ padding-bottom: 0; }
+  .role::before{
+    content:'';
+    position:absolute;
+    left: -37px;
+    top: 4px;
+    width: 9px; height: 9px;
+    background: var(--paper);
+    border: 2px solid var(--steel);
+    border-radius: 50%;
+  }
+  .role .period{
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .role h3{
+    font-family: var(--display);
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 4px 0 10px;
+  }
+  .role h3 span{ color: var(--ink-soft); font-weight: 400; font-size: 1rem; }
+  .role p{ color: var(--ink-soft); max-width: 62ch; font-size: 0.96rem; }
+
+  /* ---------- Projects ---------- */
+  .project-card{
+    border: 1px solid var(--line);
+    margin-bottom: 20px;
+  }
+  .project-card:last-child{ margin-bottom: 0; }
+  .project-head{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 22px;
+    background: var(--paper-dim);
+    border-bottom: 1px solid var(--line);
+  }
+  .project-head h3{
+    font-family: var(--display);
+    font-size: 1.15rem;
+    font-weight: 600;
+  }
+  .project-head .domain{
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--steel);
+    border: 1px solid var(--steel);
+    padding: 4px 9px;
+  }
+  .project-body{ padding: 20px 22px; }
+  .project-body p{ color: var(--ink-soft); margin-bottom: 16px; font-size: 0.96rem; }
+  .project-meta{
+    display:flex;
+    flex-wrap: wrap;
+    gap: 10px 28px;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+  }
+  .project-meta div span.label{
+    display:block;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    font-size: 0.68rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 3px;
+  }
+
+  /* ---------- Contact / Footer ---------- */
+  .contact{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+  .contact h2{
+    font-family: var(--display);
+    font-size: 2rem;
+    font-weight: 600;
+    max-width: 12ch;
+  }
+  .contact-links{
+    display:flex;
+    flex-direction: column;
+    gap: 14px;
+    font-family: var(--mono);
+    font-size: 0.92rem;
+  }
+  .contact-links a{
+    display:flex;
+    justify-content: space-between;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line);
+    transition: color 0.15s ease;
+  }
+  .contact-links a:hover{ color: var(--steel); }
+  .contact-links a .arrow{ color: var(--signal); }
+
+  footer{
+    padding: 28px 0 40px;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    display:flex;
+    justify-content: space-between;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 760px){
+    .wrap{ padding: 0 20px; }
+    .nav ul{ gap: 16px; }
+    .about-grid{ grid-template-columns: 1fr; }
+    .skill-groups{ grid-template-columns: 1fr; }
+    .contact{ grid-template-columns: 1fr; }
+    .manifest-row{ grid-template-columns: 130px 1fr; font-size: 0.78rem; }
+  }
+
+  @media (max-width: 520px){
+    .nav ul{ gap: 12px; font-size: 0.7rem; }
+    .hero{ padding: 52px 0 40px; }
+    section{ padding: 48px 0; }
+    .project-head{ flex-direction: column; align-items: flex-start; gap: 10px; }
+    footer{ flex-direction: column; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <nav class="nav wrap">
+    <div class="logo">[Your Name]</div>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">// Senior Software Developer</div>
+    <h1>Business applications built to run for years, not demos.</h1>
+    <p class="lede">
+      I design and ship the backend systems and internal tools that companies quietly depend on
+      every day — order pipelines, finance workflows, reporting engines — with a focus on
+      maintainability, correctness, and code the next developer can actually read.
+    </p>
+
+    <div class="manifest">
+      <div class="manifest-row">
+        <div class="key">Role</div>
+        <div class="val">Senior .NET / C# Developer</div>
+      </div>
+      <div class="manifest-row">
+        <div class="key">Experience</div>
+        <div class="val">8 years — business &amp; enterprise applications</div>
+      </div>
+      <div class="manifest-row">
+        <div class="key">Stack</div>
+        <div class="val">C#, ASP.NET Core, SQL Server, Azure</div>
+      </div>
+      <div class="manifest-row">
+        <div class="key">Status</div>
+        <div class="val"><span class="status-dot"></span>Open to new opportunities</div>
+      </div>
+    </div>
+
+    <div class="hero-cta">
+      <a class="btn primary" href="#projects">View projects</a>
+      <a class="btn ghost" href="#contact">Get in touch</a>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>About</h2>
+      <div class="tag">01 / profile</div>
+    </div>
+    <div class="about-grid">
+      <div>
+        <p>
+          I'm a senior developer who has spent the last eight years building line-of-business
+          software — the systems that handle inventory, invoicing, approvals, and reporting
+          for mid-size and enterprise teams. I care less about chasing new frameworks and more
+          about applications that stay easy to maintain three years after launch.
+        </p>
+        <p>
+          My background is primarily .NET and C#, working across the full stack from
+          SQL Server schema design through to the APIs and UIs that business users touch
+          every day. I've led migrations off legacy systems, rebuilt fragile integrations,
+          and mentored junior developers on writing code that survives contact with real
+          production data.
+        </p>
+      </div>
+      <div class="fact-list">
+        <div><span class="num">8</span><span class="label">Years experience</span></div>
+        <div><span class="num">20+</span><span class="label">Business apps shipped</span></div>
+        <div><span class="num">.NET</span><span class="label">Primary ecosystem</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Skills</h2>
+      <div class="tag">02 / capabilities</div>
+    </div>
+    <div class="skill-groups">
+      <div class="skill-group">
+        <h3>Backend</h3>
+        <ul>
+          <li>C# / .NET 8 / ASP.NET Core</li>
+          <li>Entity Framework Core</li>
+          <li>REST &amp; gRPC API design</li>
+          <li>Microservices &amp; message queues</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <h3>Data</h3>
+        <ul>
+          <li>SQL Server / T-SQL</li>
+          <li>Query &amp; index optimization</li>
+          <li>Reporting &amp; ETL pipelines</li>
+          <li>Redis caching</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <h3>Frontend</h3>
+        <ul>
+          <li>Blazor</li>
+          <li>React / TypeScript</li>
+          <li>Responsive UI implementation</li>
+          <li>Accessibility basics (WCAG)</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <h3>Infrastructure &amp; practice</h3>
+        <ul>
+          <li>Azure (App Service, Functions, DevOps)</li>
+          <li>CI/CD pipelines</li>
+          <li>Docker</li>
+          <li>Code review &amp; mentoring</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Experience</h2>
+      <div class="tag">03 / timeline</div>
+    </div>
+    <div class="timeline">
+      <div class="role">
+        <div class="period">2022 — Present</div>
+        <h3>Senior Software Developer <span>· [Company Name]</span></h3>
+        <p>
+          Lead developer on a suite of internal business applications used by 500+ employees
+          across finance and operations. Own architecture decisions, run code reviews, and
+          mentor two mid-level developers.
+        </p>
+      </div>
+      <div class="role">
+        <div class="period">2019 — 2022</div>
+        <h3>Software Developer <span>· [Company Name]</span></h3>
+        <p>
+          Built and maintained a customer-facing order management system, migrating a legacy
+          VB.NET application to ASP.NET Core with zero downtime for the client.
+        </p>
+      </div>
+      <div class="role">
+        <div class="period">2018 — 2019</div>
+        <h3>Junior Developer <span>· [Company Name]</span></h3>
+        <p>
+          Started on a small product team shipping features for a SaaS billing platform;
+          picked up C#, SQL, and the fundamentals of working in a production codebase.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Selected projects</h2>
+      <div class="tag">04 / records</div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-head">
+        <h3>[Project Name — e.g. Order Management Rebuild]</h3>
+        <div class="domain">Logistics</div>
+      </div>
+      <div class="project-body">
+        <p>
+          Replaced a legacy desktop order system with a web-based ASP.NET Core application,
+          cutting average order processing time and giving warehouse staff real-time status
+          visibility.
+        </p>
+        <div class="project-meta">
+          <div><span class="label">Stack</span>C# · ASP.NET Core · SQL Server</div>
+          <div><span class="label">Role</span>Lead developer</div>
+          <div><span class="label">Impact</span>Processing time down 40%</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-head">
+        <h3>[Project Name — e.g. Finance Approval Workflow]</h3>
+        <div class="domain">Finance</div>
+      </div>
+      <div class="project-body">
+        <p>
+          Designed an internal approvals platform to replace a spreadsheet-and-email process,
+          with configurable approval chains and full audit history.
+        </p>
+        <div class="project-meta">
+          <div><span class="label">Stack</span>C# · Blazor · Azure Functions</div>
+          <div><span class="label">Role</span>Solo developer</div>
+          <div><span class="label">Impact</span>Adopted by 4 departments</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-head">
+        <h3>[Project Name — e.g. Reporting Dashboard]</h3>
+        <div class="domain">Analytics</div>
+      </div>
+      <div class="project-body">
+        <p>
+          Built a reporting layer on top of an existing ERP database, giving leadership
+          self-service dashboards instead of monthly manual exports.
+        </p>
+        <div class="project-meta">
+          <div><span class="label">Stack</span>C# · React · SQL Server</div>
+          <div><span class="label">Role</span>Backend lead</div>
+          <div><span class="label">Impact</span>Removed 10 hrs/month manual work</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="contact">
+      <h2>Let's build something reliable.</h2>
+      <div class="contact-links">
+        <a href="mailto:your.email@example.com">Email <span class="arrow">→</span></a>
+        <a href="#">LinkedIn <span class="arrow">→</span></a>
+        <a href="#">GitHub <span class="arrow">→</span></a>
+        <a href="tel:+10000000000">Phone <span class="arrow">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap">
+  <div>© 2026 [Your Name]</div>
+  <div>Built with care — .NET &amp; C#</div>
+</footer>
+
+</body>
+</html>
